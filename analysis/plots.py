@@ -3,6 +3,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, TwoSlopeNorm
+from matplotlib.patches import Rectangle
 import numpy as np
 
 from mode_plots import changes_figure, totals_figure
@@ -13,8 +14,6 @@ SHORT = ["C", "G", "M", "P", "S", "H", "D", "L", "J"]
 COLORS = ["#8fcaa1","#dcebdc","#e99a82","#b6dbbf","#efede5","#f2ba95","#dedced","#c6d5e4","#bfafa6"]
 ARMS = ["G1", "G2", "G3", "G4", "G5"]
 STATE_CMAP = ListedColormap(COLORS)
-MODE_FILES = ["all14_codex_category_counts", "all14_codex_difference",
-              "all14_role_codex_category_counts", "all14_role_codex_difference"]
 
 
 def overall(table):
@@ -30,11 +29,9 @@ def overall(table):
     return fig
 
 
-def state_panels(counts, pooled):
-    subset = ["Pooled"] if pooled else [*ARMS, "Pooled"]
-    fig, axes = plt.subplots(1 if pooled else 2, 1 if pooled else 3, squeeze=False,
-                             figsize=(3.7,3.5) if pooled else (9.5,5.7), layout="constrained")
-    for group, ax in zip(subset, axes.flat):
+def state_panels(counts):
+    fig, axes = plt.subplots(2, 3, figsize=(9.5, 5.7), layout="constrained")
+    for group, ax in zip([*ARMS, "Pooled"], axes.flat):
         totals = counts.set_index("group").loc[group,STATES].to_numpy(dtype=int).reshape(3,3)
         ax.imshow(np.arange(9).reshape(3,3),cmap=STATE_CMAP,vmin=0,vmax=8)
         for i,j in np.ndindex(3,3):
@@ -84,6 +81,52 @@ def heatmaps(data, ordering, dimension, names, only_difference):
     return fig
 
 
+def issue_panels(cells, outside, names):
+    """Compare changes in checked issues on a common color scale and row order."""
+    modes = cells["mode"].drop_duplicates().tolist()
+    summaries = ["Other issues", "Focal mode total"]
+    named = cells.loc[~cells.label.isin(summaries), "label"].drop_duplicates().tolist()
+    rows = named + summaries
+    raw_limit = max(1, cells.loc[cells.label.ne("Focal mode total"), "raw_change"].abs().max())
+    norm = TwoSlopeNorm(vmin=-raw_limit, vcenter=0, vmax=raw_limit)
+    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(6.8, 4.75), layout="constrained")
+    fig.get_layout_engine().set(w_pad=.025, h_pad=.025, wspace=.045)
+    outside = outside.set_index("category").raw_change
+    for ax, category in zip(axes, ("Risk", "Benefit")):
+        panel = cells[cells.category.eq(category)].pivot(index="label", columns="mode", values="raw_change")
+        values = panel.reindex(index=rows, columns=modes)
+        ax.imshow(values.iloc[:-1], cmap="RdBu_r", norm=norm, aspect="auto", interpolation="nearest")
+        # Highlight within each panel because a mode's two largest changes can differ by case state.
+        leaders = set()
+        for mode in modes:
+            magnitudes = values.loc[named, mode].abs().dropna()
+            for label in magnitudes[magnitudes > 0].nlargest(2).index:
+                leaders.add((label, mode))
+        for i, label in enumerate(rows):
+            for j, mode in enumerate(modes):
+                value = values.at[label, mode]
+                if not np.isfinite(value):
+                    continue
+                is_total = label == "Focal mode total"
+                if not is_total:
+                    ax.add_patch(Rectangle((j-.5, i-.5), 1, 1, fill=False, edgecolor="#a2a2a2", lw=.35))
+                ax.text(j, i, f"{value:+.0f}" if value else "0", ha="center", va="center", fontsize=7.0,
+                        color="white" if not is_total and abs(value) > .65*raw_limit else "#222222",
+                        weight="bold" if is_total or (label, mode) in leaders else "normal")
+        ax.spines[:].set_visible(False)
+        ax.set_ylim(len(rows)-.5, -.5)
+        ax.set_xticks(range(len(modes)), labels=modes, fontsize=7.2)
+        ax.xaxis.tick_top()
+        ax.tick_params(length=0, pad=2)
+        ax.set_title(f"{category} cases", fontsize=10, weight="bold", pad=6)
+        ax.axhline(len(named)-.5, color="#aaa", lw=.45)
+        ax.axhline(len(rows)-1.5, color="#777", lw=.45)
+        ax.set_xlabel(f"Outside focal modes: {outside[category]:+d}", fontsize=7.0, labelpad=4)
+    axes[0].set_yticks(range(len(rows)), labels=[names.get(label, label) for label in rows], fontsize=7)
+    axes[0].get_yticklabels()[-1].set_weight("bold")
+    return fig
+
+
 def feature_plot(models):
     fig,ax = plt.subplots(figsize=(8.4,3.4),layout="constrained")
     for i,row in enumerate(models.itertuples()):
@@ -98,19 +141,23 @@ def feature_plot(models):
 def render(tables,out):
     folder=out/"figures"
     folder.mkdir(exist_ok=True)
+    # Earlier releases wrote the pooled sixth panel a second time on its own.
+    (folder / "pooled_all_split.pdf").unlink(missing_ok=True)
     def save(figure,name):
         figure.savefig(folder/f"{name}.pdf",bbox_inches="tight",metadata={"CreationDate": None})
         plt.close(figure)
     save(overall(tables["overall"]),"outcome_effects_split")
-    save(state_panels(tables["state_counts"],True),"pooled_all_split")
-    save(state_panels(tables["state_counts"],False),"categories_all_split")
+    save(state_panels(tables["state_counts"]),"categories_all_split")
     estimates=tables["mode_contrasts"]
     modes=sorted(estimates["mode"].unique())
     save(totals_figure(estimates,modes,["All"]),"all14_failure_case_totals")
     save(frequency(tables["task_risk_frequency"]),"risk_frequency_all_split_split_only")
     save(changes_figure(estimates,modes,by_category=True),"all14_case_incidence")
     names=tables["issue_inventory"].set_index("label").issue_type.to_dict()
-    for table,filename in zip(["issue_cells","issue_difference","role_cells","role_difference"],MODE_FILES):
+    save(issue_panels(tables["issue_cells"], tables["outside_focal_modes"], names), "all14_codex_category_counts")
+    for table,filename in [("issue_difference", "all14_codex_difference"),
+                           ("role_cells", "all14_role_codex_category_counts"),
+                           ("role_difference", "all14_role_codex_difference")]:
         ordering = tables["role_cells"] if table.startswith("role") else tables["issue_cells"]
         save(heatmaps(tables[table],ordering,"role" if table.startswith("role") else "label",names,
                       table.endswith("difference")),filename)

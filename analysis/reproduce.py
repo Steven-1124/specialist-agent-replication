@@ -91,6 +91,9 @@ def issue_results(issues, definitions, cases, modes):
     display = summary.groupby(["mode", "display_label", "arm"]).size().unstack(fill_value=0)
     display["change"] = display.specialist - display.generalist
     display["occurrence_share"] = (display.generalist + display.specialist) / len(merged)
+    outside = summary.loc[summary["mode"].eq("Outside focal modes")]
+    outside_counts = outside.groupby(["category", "arm"]).size().unstack(fill_value=0)
+    outside_changes = (outside_counts.specialist - outside_counts.generalist).rename("raw_change")
     selected = merged[merged["mode"].isin(focal) & merged.category.isin(["Risk", "Benefit"])]
     rows_issue, rows_role = [], []
     for mode in focal:
@@ -112,7 +115,8 @@ def issue_results(issues, definitions, cases, modes):
         arms = cells.pivot(index=[key,"mode"], columns="category", values="raw_change")
         between = (arms.Risk - arms.Benefit).rename("raw_change").reset_index().assign(category=DIFFERENCE)
         return cells, between
-    return inventory, display.reset_index(), *contrasts(rows_issue,"label"), *contrasts(rows_role,"role")
+    return (inventory, display.reset_index(), *contrasts(rows_issue,"label"),
+            *contrasts(rows_role,"role"), outside_changes.reset_index())
 
 
 def feature_results(scores, ratings, frequency):
@@ -180,7 +184,7 @@ def main():
     r["mode_ranking"] = all_modes.sort_values("combined_flags",ascending=False)
     r["flags_by_category"] = all_modes.groupby(all_modes["mode"].str[0])[["generalist","specialist","combined_flags"]].sum().rename_axis("mast_category").reset_index()
     (r["issue_inventory"],r["focal_issue_table"],r["issue_cells"],r["issue_difference"],
-     r["role_cells"],r["role_difference"]) = issue_results(
+     r["role_cells"],r["role_difference"],r["outside_focal_modes"]) = issue_results(
         read(args.data,"issue_associations"),read(args.data,"issue_types"),r["cases"],r["mode_contrasts"])
     r["feature_models"],r["feature_correlations"] = feature_results(read(args.data,"task_features"),read(args.data,"paired_feature_ratings"),r["task_risk_frequency"])
     r["recheck"] = trace_recheck(read(args.data,"mode_2_6_trace_recheck"),r["cases"],runs)

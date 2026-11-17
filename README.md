@@ -32,7 +32,7 @@ python -m pip install -r analysis/requirements.txt
 python analysis/reproduce.py
 ```
 
-The command reconstructs the numerical tables and 11 empirical figures in `build/analysis/` and checks calculated values against archived results. It covers case classifications, task risk frequency, failure mode incidence, checked issues and their associated roles, and task-feature regressions. The [analysis guide](analysis/README.md) maps the outputs to the paper and explains the estimators.
+The command reconstructs the numerical tables and 10 empirical figures in `build/analysis/` and checks calculated values against archived results. It covers case classifications, task risk frequency, failure mode incidence, checked issues and their associated roles, and task-feature regressions. The [analysis guide](analysis/README.md) maps the outputs to the paper and explains the estimators.
 
 ## Inspect the evidence or run a new experiment
 

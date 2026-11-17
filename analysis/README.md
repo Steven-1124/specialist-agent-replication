@@ -9,21 +9,22 @@ python -m pip install -r analysis/requirements.txt
 python analysis/reproduce.py
 ```
 
-Outputs go to `build/analysis/`. Use `--out PATH` for another directory or `--no-plots` for the numerical tables alone. The script first calculates the results from the individual runs, checked issue associations, and task ratings. It then compares them with 12 independently exported tables in [the published-result archive](../data/published/). The same run writes eleven figures in PDF format. The numerical tables preserve full precision. The regenerated plots use the paper's measures and data, with some differences in presentation.
+Outputs go to `build/analysis/`. Use `--out PATH` for another directory or `--no-plots` for the numerical tables alone. The script first calculates the results from the individual runs, checked issue associations, and task ratings. It then compares them with 12 independently exported tables in [the published-result archive](../data/published/). The same run writes the ten empirical figures as PDFs. The numerical tables preserve full precision. The regenerated plots use the paper's measures and data, with some differences in presentation.
 
 | Working-paper exhibit | Output in `build/analysis/` |
 | --- | --- |
 | Figures 1–3 and Tables 1–2 | See the [three design exhibits](../design/), the [six agent contracts](../prompts/mas/), and the [model assignments](../experiment/models.json). |
 | Table 3 | In `data/executions.csv`, count rows by group and arm. Each group has 90 executions per arm and 30 distinct tasks. |
 | Figure 4, overall changes | `overall.csv` and `figures/outcome_effects_split.pdf` |
-| Figures 5–6, outcome and process combinations | `cases.csv`, `state_counts.csv`, and the pooled and group panels |
-| Figure 7 and Table 4, failure-mode composition | `mode_ranking.csv`, `flags_by_category.csv`, and `figures/all14_failure_case_totals.pdf` |
-| Figure 8, task heterogeneity | `task_risk_frequency.csv` and `figures/risk_frequency_all_split_split_only.pdf` |
-| Figure 9 and Table 5, within-state changes and their contrast | `mode_contrasts.csv` and `figures/all14_case_incidence.pdf` |
-| Figures 10–11 and Table 6, issue-type composition | `focal_issue_table.csv`, `issue_cells.csv`, `issue_difference.csv`, and both corresponding issue figures |
-| Figures 12–13, role composition | `role_cells.csv`, `role_difference.csv`, and both corresponding role figures |
+| Figure 5, outcome and process combinations | `cases.csv`, `state_counts.csv`, and `figures/categories_all_split.pdf` (five groups and the pooled sample) |
+| Figure 6 and Table 4, failure-mode composition | `mode_ranking.csv`, `flags_by_category.csv`, and `figures/all14_failure_case_totals.pdf` |
+| Figure 7, task heterogeneity | `task_risk_frequency.csv` and `figures/risk_frequency_all_split_split_only.pdf` |
+| Figure 8 and Table 5, within-state changes and their contrast | `mode_contrasts.csv` and `figures/all14_case_incidence.pdf` |
+| Figure 9 and Table 6, issue-type composition within each state | `focal_issue_table.csv`, `issue_cells.csv`, `outside_focal_modes.csv`, and `figures/all14_codex_category_counts.pdf` (risk and benefit panels side by side) |
+| Figure 10, risk-minus-benefit difference in issue counts | `issue_difference.csv` and `figures/all14_codex_difference.pdf` |
+| Figures 11–12, role composition | `role_cells.csv`, `role_difference.csv`, and both corresponding role figures |
 | Section 5.1, evaluator and issue-supported mode 2.6 | `recheck.csv` |
-| Figure 14 and Table 7, task features | `feature_models.csv`, `feature_correlations.csv`, `figures/task_risk_frequency_all_split.pdf`, and the scoring instructions in `data/feature_rubric.csv` |
+| Figure 13 and Table 7, task features | `feature_models.csv`, `feature_correlations.csv`, `figures/task_risk_frequency_all_split.pdf`, and the scoring instructions in `data/feature_rubric.csv` |
 | Appendix Tables 8–9 | `issue_inventory.csv`, including observed counts, zero-count types, and primary-mode assignments |
 
 ## Analysis units
