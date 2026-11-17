@@ -89,10 +89,34 @@ def issue_panels(cells, outside, names):
     rows = named + summaries
     raw_limit = max(1, cells.loc[cells.label.ne("Focal mode total"), "raw_change"].abs().max())
     norm = TwoSlopeNorm(vmin=-raw_limit, vcenter=0, vmax=raw_limit)
-    fig, axes = plt.subplots(1, 2, sharey=True, figsize=(6.8, 4.75), layout="constrained")
-    fig.get_layout_engine().set(w_pad=.025, h_pad=.025, wspace=.045)
+    # Reserve separate widths for the long issue names, the two matrices, and their gutter.
+    fig = plt.figure(figsize=(6.8, 4.55))
+    grid = fig.add_gridspec(1, 4, width_ratios=(2.85, 1.73, .43, 1.73),
+                            left=.012, right=.988, bottom=.065, top=.885, wspace=0)
+    labels_ax = fig.add_subplot(grid[0, 0])
+    risk_ax = fig.add_subplot(grid[0, 1], sharey=labels_ax)
+    benefit_ax = fig.add_subplot(grid[0, 3], sharey=labels_ax)
+    labels_ax.set_axis_off()
+    labels_ax.set_xlim(0, 1)
+    labels_ax.set_ylim(len(rows)-.5, -.5)
+    for i, label in enumerate(rows):
+        labels_ax.text(0, i, names.get(label, label), va="center", fontsize=6.9,
+                       weight="bold" if label == "Focal mode total" else "normal", color="#20292c")
+    labels_ax.set_title("Checked issue type", loc="left", fontsize=8.1, weight="bold", pad=4)
+
+    # Alternating row bands support comparisons across the gutter; rules separate mode blocks.
+    label_mode = cells.loc[cells.label.isin(named)].drop_duplicates("label").set_index("label")["mode"]
+    boundaries = [i-.5 for i in range(1, len(named)) if label_mode[rows[i]] != label_mode[rows[i-1]]]
+    for ax in (labels_ax, risk_ax, benefit_ax):
+        for i in range(1, len(named), 2):
+            ax.axhspan(i-.5, i+.5, color="#f5f6f6", lw=0, zorder=-1)
+        for boundary in boundaries:
+            ax.axhline(boundary, color="#d8ddde", lw=.38, zorder=1)
+        ax.axhline(len(named)-.5, color="#9ca6a8", lw=.55)
+        ax.axhline(len(rows)-1.5, color="#9ca6a8", lw=.55)
+
     outside = outside.set_index("category").raw_change
-    for ax, category in zip(axes, ("Risk", "Benefit")):
+    for ax, category in zip((risk_ax, benefit_ax), ("Risk", "Benefit")):
         panel = cells[cells.category.eq(category)].pivot(index="label", columns="mode", values="raw_change")
         values = panel.reindex(index=rows, columns=modes)
         ax.imshow(values.iloc[:-1], cmap="RdBu_r", norm=norm, aspect="auto", interpolation="nearest")
@@ -115,15 +139,12 @@ def issue_panels(cells, outside, names):
                         weight="bold" if is_total or (label, mode) in leaders else "normal")
         ax.spines[:].set_visible(False)
         ax.set_ylim(len(rows)-.5, -.5)
-        ax.set_xticks(range(len(modes)), labels=modes, fontsize=7.2)
+        ax.set_xticks(range(len(modes)), labels=modes, fontsize=7)
         ax.xaxis.tick_top()
-        ax.tick_params(length=0, pad=2)
-        ax.set_title(f"{category} cases", fontsize=10, weight="bold", pad=6)
-        ax.axhline(len(named)-.5, color="#aaa", lw=.45)
-        ax.axhline(len(rows)-1.5, color="#777", lw=.45)
-        ax.set_xlabel(f"Outside focal modes: {outside[category]:+d}", fontsize=7.0, labelpad=4)
-    axes[0].set_yticks(range(len(rows)), labels=[names.get(label, label) for label in rows], fontsize=7)
-    axes[0].get_yticklabels()[-1].set_weight("bold")
+        ax.tick_params(axis="x", length=0, pad=2)
+        ax.tick_params(axis="y", left=False, labelleft=False)
+        ax.set_title(f"{category} cases", fontsize=9, weight="bold", pad=6)
+        ax.set_xlabel(f"Outside focal modes: {outside[category]:+d}", fontsize=6.9, labelpad=4)
     return fig
 
 
