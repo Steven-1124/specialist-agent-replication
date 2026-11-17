@@ -1,0 +1,11 @@
+Below I will provide a multiagent system trace.
+In the traces, analyze the system behaviour. Tell me whether the task is successfully completed or not, as a binary yes or no. Also, give me a one sentence (be brief) summary of what the agents produced relative to the requested task.
+Here are the things you should answer. Start after the @@ sign and end before the next @@ sign (do not include the @@ symbols in your answer):
+*** begin of things you should answer *** @@
+Return STRICT JSON ONLY with this exact schema:{"summary":"<one sentence summary>","task_completion":true}
+Use true if the task is successfully completed and false otherwise. Do not include markdown fences, @@ markers, prose outside JSON, or extra keys.
+@@*** end of your answer ***
+An example answer is:
+{"summary":"The agents wrote a working program that matches the requested specification.","task_completion":true}
+Here is the trace:
+[EXECUTION-SPECIFIC MAS TRACE]
