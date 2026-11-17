@@ -1,0 +1,91 @@
+task_id,dimension,rater_1,rater_2
+checkers,Unresolved essential design choices,1,0
+checkers,Behavioral coupling,2,2
+checkers,Sequential verification burden,2,2
+sudoku,Unresolved essential design choices,1,1
+sudoku,Behavioral coupling,2,2
+sudoku,Sequential verification burden,1,2
+thecrossword,Unresolved essential design choices,1,1
+thecrossword,Behavioral coupling,2,2
+thecrossword,Sequential verification burden,1,2
+detectpalindromes,Unresolved essential design choices,2,1
+detectpalindromes,Behavioral coupling,0,0
+detectpalindromes,Sequential verification burden,0,0
+budgettracker,Unresolved essential design choices,2,2
+budgettracker,Behavioral coupling,1,1
+budgettracker,Sequential verification burden,1,1
+fibonaccinumbers,Unresolved essential design choices,1,1
+fibonaccinumbers,Behavioral coupling,0,0
+fibonaccinumbers,Sequential verification burden,0,0
+tictactoe,Unresolved essential design choices,0,0
+tictactoe,Behavioral coupling,1,2
+tictactoe,Sequential verification burden,1,1
+gomoku,Unresolved essential design choices,0,0
+gomoku,Behavioral coupling,1,2
+gomoku,Sequential verification burden,1,1
+chess,Unresolved essential design choices,0,0
+chess,Behavioral coupling,2,2
+chess,Sequential verification burden,2,2
+2048,Unresolved essential design choices,0,0
+2048,Behavioral coupling,2,2
+2048,Sequential verification burden,2,2
+tiny_rouge,Unresolved essential design choices,2,2
+tiny_rouge,Behavioral coupling,2,2
+tiny_rouge,Sequential verification burden,2,2
+wordle,Unresolved essential design choices,1,1
+wordle,Behavioral coupling,2,2
+wordle,Sequential verification burden,2,2
+minesweeper,Unresolved essential design choices,1,1
+minesweeper,Behavioral coupling,2,2
+minesweeper,Sequential verification burden,2,2
+connectionsnyt,Unresolved essential design choices,2,2
+connectionsnyt,Behavioral coupling,2,2
+connectionsnyt,Sequential verification burden,2,2
+strandsnyt,Unresolved essential design choices,2,2
+strandsnyt,Behavioral coupling,2,2
+strandsnyt,Sequential verification burden,2,2
+snakegame,Unresolved essential design choices,1,1
+snakegame,Behavioral coupling,2,2
+snakegame,Sequential verification burden,2,2
+connectfour,Unresolved essential design choices,0,0
+connectfour,Behavioral coupling,1,2
+connectfour,Sequential verification burden,1,1
+triviaquiz,Unresolved essential design choices,1,1
+triviaquiz,Behavioral coupling,1,1
+triviaquiz,Sequential verification burden,1,1
+doudizhupoker,Unresolved essential design choices,1,0
+doudizhupoker,Behavioral coupling,2,2
+doudizhupoker,Sequential verification burden,2,2
+tetris,Unresolved essential design choices,1,1
+tetris,Behavioral coupling,2,2
+tetris,Sequential verification burden,2,2
+reversiothello,Unresolved essential design choices,0,0
+reversiothello,Behavioral coupling,2,2
+reversiothello,Sequential verification burden,2,2
+strandsgame,Unresolved essential design choices,2,2
+strandsgame,Behavioral coupling,1,2
+strandsgame,Sequential verification burden,1,1
+monopolygo,Unresolved essential design choices,2,2
+monopolygo,Behavioral coupling,2,2
+monopolygo,Sequential verification burden,2,2
+episodechooseyourstory,Unresolved essential design choices,2,2
+episodechooseyourstory,Behavioral coupling,2,2
+episodechooseyourstory,Sequential verification burden,2,2
+candycrush,Unresolved essential design choices,1,1
+candycrush,Behavioral coupling,2,2
+candycrush,Sequential verification burden,2,2
+flappybird,Unresolved essential design choices,2,2
+flappybird,Behavioral coupling,2,2
+flappybird,Sequential verification burden,2,2
+textbasedspaceinvaders,Unresolved essential design choices,2,1
+textbasedspaceinvaders,Behavioral coupling,2,2
+textbasedspaceinvaders,Sequential verification burden,2,2
+goldminer,Unresolved essential design choices,2,2
+goldminer,Behavioral coupling,2,2
+goldminer,Sequential verification burden,2,2
+pong,Unresolved essential design choices,1,1
+pong,Behavioral coupling,2,2
+pong,Sequential verification burden,2,2
+mastermind,Unresolved essential design choices,1,1
+mastermind,Behavioral coupling,2,1
+mastermind,Sequential verification burden,1,1

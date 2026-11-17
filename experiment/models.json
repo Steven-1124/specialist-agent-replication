@@ -1,0 +1,57 @@
+{
+  "groups": {
+    "1": "llama-3.3-70b-instruct",
+    "2": "qwen2.5-72b-instruct",
+    "3": "qwen3-next-80b-a3b-instruct",
+    "4": "gpt-oss-120b",
+    "5": "llama-3.1-70b-instruct"
+  },
+  "coders": {
+    "generalist": "qwen2.5-32b-instruct",
+    "specialist": "qwen2.5-coder-32b-instruct"
+  },
+  "models": {
+    "qwen2.5-32b-instruct": {
+      "id": "Qwen/Qwen2.5-32B-Instruct",
+      "loader": "bitsandbytes_nf4",
+      "endpoint_env": "OS_MAS_QWEN25_32B_BASE_URL",
+      "revision": "5ede1c97bbab6ce5cda5812749b4c0bdf79b18dd"
+    },
+    "qwen2.5-coder-32b-instruct": {
+      "id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+      "loader": "bitsandbytes_nf4",
+      "endpoint_env": "OS_MAS_QWEN25_CODER_32B_BASE_URL",
+      "revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7"
+    },
+    "llama-3.3-70b-instruct": {
+      "id": "meta-llama/Llama-3.3-70B-Instruct",
+      "loader": "bitsandbytes_nf4",
+      "endpoint_env": "OS_MAS_LLAMA33_70B_BASE_URL",
+      "revision": "6f6073b423013f6a7d4d9f39144961bfbfbc386b"
+    },
+    "llama-3.1-70b-instruct": {
+      "id": "meta-llama/Llama-3.1-70B-Instruct",
+      "loader": "bitsandbytes_nf4",
+      "endpoint_env": "OS_MAS_LLAMA31_70B_BASE_URL",
+      "revision": "1605565b47bb9346c5515c34102e054115b4f98b"
+    },
+    "qwen2.5-72b-instruct": {
+      "id": "Qwen/Qwen2.5-72B-Instruct",
+      "loader": "bitsandbytes_nf4",
+      "endpoint_env": "OS_MAS_QWEN25_72B_BASE_URL",
+      "revision": "495f39366efef23836d0cfae4fbe635880d2be31"
+    },
+    "qwen3-next-80b-a3b-instruct": {
+      "id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "loader": "bitsandbytes_nf4_modern",
+      "endpoint_env": "OS_MAS_QWEN3_NEXT_80B_BASE_URL",
+      "revision": "9c7f2fbe84465e40164a94cc16cd30b6999b0cc7"
+    },
+    "gpt-oss-120b": {
+      "id": "openai/gpt-oss-120b",
+      "loader": "native_mxfp4",
+      "endpoint_env": "OS_MAS_GPT_OSS_120B_BASE_URL",
+      "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a"
+    }
+  }
+}

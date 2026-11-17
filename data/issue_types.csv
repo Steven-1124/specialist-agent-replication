@@ -1,0 +1,59 @@
+label,issue_type,mode,type_subject_role
+R1P,Reviewer partial ignorance of bugs,3.2,Reviewer
+R1F,Reviewer full ignorance of bugs,3.3,Reviewer
+C2,Coder incapability,1.1,Coder
+M1,CPO manual inconsistency with code,2.5,CPO
+R6,Reviewer early approval with incomplete task,3.1,Reviewer
+PC1,Coder claim–code contradiction,2.6,Coder
+C1,Coder ignorance of reviews,2.5,Coder
+D2,Coder disobeys CPO,2.5,Coder
+R2,Reviewer misjudge,3.3,Reviewer
+PC2,Coder disobeys user task,1.1,Coder
+D3,Coder disobeys CTO,2.5,Coder
+R9,Reviewer repeats an unfulfilled request,1.3,Reviewer
+R4,Reviewer disobeys 3-round constraint,1.5,Reviewer
+R3,Reviewer early approval with issues,2.6,Reviewer
+H5,CTO omits an upstream requirement,2.4,CTO
+R13,Reviewer makes an incorrect verification claim,3.3,Reviewer
+R7,Reviewer repeats a fulfilled request,1.3,Reviewer
+H3,CEO omits an original task requirement,2.4,CEO
+R11,Reviewer finding–checklist contradiction,2.6,Reviewer
+S_CEO,CEO disobeys role specification,1.2,CEO
+PR1,Reviewer-raised-invalid-fix,3.3,Reviewer
+PC3,Coder output-format violation,1.2,Coder
+R10,Reviewer repeats a contradicted defect diagnosis,1.3,Reviewer
+H4,CPO omits an upstream requirement,2.4,CPO
+R8,Reviewer accepts incomplete verification coverage,3.2,Reviewer
+R12,Reviewer clears a previously identified blocker,2.6,Reviewer
+U_Reviewer,Reviewer unsupported assurance,3.3,Reviewer
+D1,Coder disobeys CEO,2.5,Coder
+C11,Coder implements valid review feedback inadequately,2.5,Coder
+PC4,Coder departs from a received task specification,1.1,Coder
+PT2,CTO disobeys CPO,2.5,CTO
+U_Manual,CPO manual unsupported assurance,3.3,CPO
+H2,Workflow drops known blocking review feedback,2.4,Reviewer
+C6,Coder restores a previously corrected defect,1.3,Coder
+C8,Coder repeats a defective target with only cosmetic changes,1.3,Coder
+F_CTO,CTO output-format violation,1.2,CTO
+C4,Coder repeats unchanged defective code,1.3,Coder
+F_Manual,CPO manual output-format violation,1.2,CPO
+F_CPO,CPO output-format violation,1.2,CPO
+H1,Workflow drops a known product requirement,2.4,CPO
+C9,Coder cycles between incompatible repairs,1.3,Coder
+F_CEO,CEO output-format violation,1.2,CEO
+P_CEO_INFEASIBLE,CEO sets infeasible task requirements,1.1,CEO
+U_Coder,Coder unsupported assurance,3.3,Coder
+D_CPO_CEO,CPO disobeys CEO,2.5,CPO
+R5,Reviewer requests REVISE without raised issues,2.6,Reviewer
+C10,Coder repeats implemented declarations as empty stubs,1.3,Coder
+C5,Coder resubmits the entire unchanged deliverable,1.3,Coder
+C7,Coder submits duplicate implementations at the same path,1.3,Coder
+PT1,CTO disobeys CEO,2.5,CTO
+PT3,CTO omits essential plan component,1.1,CTO
+PT4,CTO issues conflicting implementation instructions,2.6,CTO
+P_CPO_INFEASIBLE,CPO sets infeasible task requirements,1.1,CPO
+F_Reviewer,Reviewer output-format violation,1.2,Reviewer
+M2,CPO manual inconsistency with review,2.5,CPO
+U_CEO,CEO unsupported assurance,3.3,CEO
+U_CPO,CPO unsupported assurance,3.3,CPO
+U_CTO,CTO unsupported assurance,3.3,CTO

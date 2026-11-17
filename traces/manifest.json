@@ -1,0 +1,27 @@
+{
+  "anchor_and_mask_counts": {
+    "associations without stored anchors": 492,
+    "located as JSON-escaped": 546,
+    "located input": 3080,
+    "located output": 21388,
+    "located task_prompt": 220,
+    "marked outputs": 311,
+    "runs with masking": 243
+  },
+  "associations": 6131,
+  "encodings": "utf-8; gzip mtime=0; JSON Lines",
+  "output_mask_counts": {
+    "connection URI with user information": 19,
+    "contact address": 201,
+    "credential-like literal": 86,
+    "encoded data": 2,
+    "external URL": 183,
+    "home path": 1
+  },
+  "roles_turns": 7512,
+  "runs": 900,
+  "sha256": {
+    "issue_anchors.jsonl.gz": "60748722eeadd9f1fd41f0eda91d4fcfa9120db16c1d6cda45f895a8ec5e9d4d",
+    "runs.jsonl.gz": "3fc5462f0e0f709381ae6db6df015c445a6b0b5b56a014a02a2ca302db8331ba"
+  }
+}

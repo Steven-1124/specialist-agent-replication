@@ -1,0 +1,7 @@
+# Isolated compatibility overlay for Qwen3-Next and GPT-OSS only.
+# Torch 2.8.0, accelerate, and bitsandbytes come from the validated base venv.
+transformers==4.57.6
+huggingface-hub>=0.34,<1
+safetensors>=0.4
+kernels==0.12.3
+openai-harmony==0.0.8

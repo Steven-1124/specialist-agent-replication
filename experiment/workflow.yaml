@@ -1,0 +1,158 @@
+graph:
+  id: ChatDev_experiment_workflow
+  description: CEO → CPO → CTO → Programmer ⇄ Reviewer → CPO (manual) → FINAL.
+  log_level: DEBUG
+  is_majority_voting: false
+  nodes:
+    - id: USER
+      type: passthrough
+      description: ""
+      context_window: 0
+      config: {}
+    - id: FINAL
+      type: passthrough
+      description: ""
+      context_window: 0
+      config: {}
+    - id: Chief Executive Officer
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+    - id: Chief Product Officer
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+    - id: Chief Technology Officer
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+    - id: Programmer
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+    - id: Code Reviewer
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+    - id: Chief Product Officer Manual
+      type: agent
+      context_window: -1
+      log_output: true
+      config:
+        name: gpt-4o
+        provider: openai
+        role: "${COMMON_PROMPT}"
+        base_url: ${BASE_URL}
+        api_key: ${API_KEY}
+        params: {}
+        tooling: []
+  edges:
+    - from: USER
+      to: Chief Executive Officer
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: true
+    - from: Chief Executive Officer
+      to: Chief Product Officer
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: false
+    - from: Chief Product Officer
+      to: Chief Technology Officer
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: false
+    - from: Chief Technology Officer
+      to: Programmer
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: false
+    - from: Programmer
+      to: Code Reviewer
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: false
+    - from: Code Reviewer
+      to: Programmer
+      trigger: true
+      condition:
+        type: keyword
+        config:
+          any:
+            - "<REVISE>"
+          none: []
+          regex: []
+          case_sensitive: true
+      carry_data: true
+      keep_message: false
+    - from: Code Reviewer
+      to: Chief Product Officer Manual
+      trigger: true
+      condition:
+        type: keyword
+        config:
+          any:
+            - "<APPROVE>"
+          none: []
+          regex: []
+          case_sensitive: true
+      carry_data: true
+      keep_message: false
+    - from: Chief Product Officer Manual
+      to: FINAL
+      trigger: true
+      condition: "true"
+      carry_data: true
+      keep_message: false
+  memory: []
+  initial_instruction: ""
+  start:
+    - USER
+  end: []
+vars:
+  COMMON_PROMPT: PLACEHOLDER_FILLED_BY_RUN_BATCH

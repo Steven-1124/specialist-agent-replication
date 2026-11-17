@@ -1,0 +1,85 @@
+category,label,mode,raw_change
+Risk,PC1,2.6,6.0
+Risk,R3,2.6,11.0
+Risk,R11,2.6,8.0
+Risk,R12,2.6,8.0
+Risk,C2,1.1,-9.0
+Risk,PC2,1.1,16.0
+Risk,PC4,1.1,1.0
+Risk,R1F,3.3,22.0
+Risk,R2,3.3,15.0
+Risk,R13,3.3,0.0
+Risk,PR1,3.3,2.0
+Risk,U_Reviewer,3.3,0.0
+Risk,U_Manual,3.3,7.0
+Risk,M1,2.5,27.0
+Risk,C1,2.5,7.0
+Risk,D2,2.5,4.0
+Risk,D3,2.5,3.0
+Risk,D1,2.5,1.0
+Risk,C11,2.5,0.0
+Risk,PT2,2.5,1.0
+Risk,R9,1.3,-5.0
+Risk,R7,1.3,-3.0
+Risk,R10,1.3,2.0
+Risk,H5,2.4,1.0
+Risk,H3,2.4,-3.0
+Risk,H4,2.4,1.0
+Risk,H2,2.4,1.0
+Risk,R4,1.5,0.0
+Risk,Other issues,2.6,0.0
+Risk,Other issues,1.1,-2.0
+Risk,Other issues,3.3,0.0
+Risk,Other issues,2.5,0.0
+Risk,Other issues,1.3,3.0
+Risk,Other issues,2.4,0.0
+Risk,Other issues,1.5,0.0
+Risk,Focal mode total,2.6,33.0
+Risk,Focal mode total,1.1,6.0
+Risk,Focal mode total,3.3,46.0
+Risk,Focal mode total,2.5,43.0
+Risk,Focal mode total,1.3,-3.0
+Risk,Focal mode total,2.4,0.0
+Risk,Focal mode total,1.5,0.0
+Benefit,PC1,2.6,-25.0
+Benefit,R3,2.6,10.0
+Benefit,R11,2.6,0.0
+Benefit,R12,2.6,-1.0
+Benefit,C2,1.1,-41.0
+Benefit,PC2,1.1,-23.0
+Benefit,PC4,1.1,0.0
+Benefit,R1F,3.3,5.0
+Benefit,R2,3.3,3.0
+Benefit,R13,3.3,-18.0
+Benefit,PR1,3.3,-5.0
+Benefit,U_Reviewer,3.3,4.0
+Benefit,U_Manual,3.3,-1.0
+Benefit,M1,2.5,-29.0
+Benefit,C1,2.5,-45.0
+Benefit,D2,2.5,4.0
+Benefit,D3,2.5,-14.0
+Benefit,D1,2.5,0.0
+Benefit,C11,2.5,-5.0
+Benefit,PT2,2.5,-3.0
+Benefit,R9,1.3,-31.0
+Benefit,R7,1.3,-3.0
+Benefit,R10,1.3,2.0
+Benefit,H5,2.4,1.0
+Benefit,H3,2.4,-2.0
+Benefit,H4,2.4,-1.0
+Benefit,H2,2.4,-6.0
+Benefit,R4,1.5,-32.0
+Benefit,Other issues,2.6,-2.0
+Benefit,Other issues,1.1,0.0
+Benefit,Other issues,3.3,1.0
+Benefit,Other issues,2.5,0.0
+Benefit,Other issues,1.3,-7.0
+Benefit,Other issues,2.4,-2.0
+Benefit,Other issues,1.5,0.0
+Benefit,Focal mode total,2.6,-18.0
+Benefit,Focal mode total,1.1,-64.0
+Benefit,Focal mode total,3.3,-11.0
+Benefit,Focal mode total,2.5,-92.0
+Benefit,Focal mode total,1.3,-39.0
+Benefit,Focal mode total,2.4,-10.0
+Benefit,Focal mode total,1.5,-32.0

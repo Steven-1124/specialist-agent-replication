@@ -1,0 +1,19 @@
+{
+  "category_2_3_revision_20261031/data/cases.csv": "563a3604a91c91e223cb261c7078dddc15f59fe50768fe125404409b54a8163b",
+  "category_2_3_revision_20261031/data/execution_votes.csv": "dbf357b23d723a5e5f5df03cf7d5e62a01e553eb008c67033e94bed5a67881db",
+  "category_2_3_revision_20261031/data/task_dimension_scores.csv": "225e44d48b03d63f9dbb254a58656d4e45bdb156f293d578a3c077a45f2702cc",
+  "category_2_3_revision_20261031/data/task_risk_frequency_panels.csv": "ea4509ad68b1117f474662c5e9496cd6377c5598127e695f3d929dbdbd2c4f9a",
+  "category_2_3_revision_20261031/data/task_risk_frequency_tests.csv": "e76c98653887b41841433b310aff87b6d2e35b1c89675a2137c8676a1ada3f7a",
+  "issue_analysis/output/active_issue_associations.csv": "3006b9d7b40fa03388db69260464cc5a0b00d0f8738e21fa49aa29ff92136f09",
+  "issue_analysis/output/all14_case_incidence.csv": "4e9aaee08fc1ebc7bea8fb1ebc5ad8f914f185db4699d5eac5d011046f269a88",
+  "issue_analysis/output/all14_codex_category_counts_plotted.csv": "2e336788ccf6c4623039bd8fe37c0a733c5dc4adef4743880f7bc0b64738ebce",
+  "issue_analysis/output/all14_codex_difference_plotted.csv": "e7f322cfd64973bf0574a2956ce50d70ce146312c3cf306a1d73fba1567edd9c",
+  "issue_analysis/output/all14_role_codex_category_counts_plotted.csv": "7447a832ad69c21ecd59f5d2978d8c4b74d46c93f9129b6cb56a0511cb4d0bd5",
+  "issue_analysis/output/all14_role_codex_difference_plotted.csv": "5e147acad494dc7b27259211ba22cdb9e522c078b50862ce32e4db2fa88f2860",
+  "issue_analysis/output/distribution_all14.csv": "904ad4e8b5d8ee183ff1e8968d1140f85b95387d848e9b66b835560e0b811776",
+  "issue_analysis/output/distribution_full_all14.csv": "41827f910df03eb47b181c9799e7bdb38e83c09b52a31a60cba9f47f19f8db39",
+  "issue_analysis/output/failure_mode_rechecked_case_gaps.csv": "ebfefe779cd6282f1c5d1c1a43e2b22c89dd9d3b49da8bdc0abf17d1a755e077",
+  "issue_analysis/output/failure_mode_rechecked_pairs.csv": "07417fc0e1b047be9fe1eb23bffc96bf2bd446b3adaf88349111534b289e5678",
+  "report_revision_20261021/tmp1_revision/outcomes/numeric/outcome_effects_split.csv": "d4e822f2f81c0bbf8b25bc9f16aa57b2046ca80d632d593eced6acfeefda4fe6",
+  "task_features/task_discussion_validation/task_ratings.csv": "3d5e8c779c2441fc5cea0ed9cdfec552ae44e0ddd86764654645ef420319c360"
+}
