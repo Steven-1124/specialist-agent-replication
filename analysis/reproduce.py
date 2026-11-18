@@ -69,6 +69,18 @@ def mode_results(runs, cases):
     return pd.DataFrame(rows)
 
 
+def print_top_five_modes(contrasts):
+    """Report the five largest contributions to the net risk-minus-benefit gap."""
+    gaps = contrasts.loc[contrasts["contrast"].eq(DIFFERENCE), ["mode", "estimate"]]
+    top_five = gaps.nlargest(5, "estimate")
+    top_five_gap = top_five["estimate"].sum()
+    total_gap = gaps["estimate"].sum()
+    print("Five largest risk-minus-benefit differences (flagged runs per three-run case):")
+    print(top_five.to_string(index=False, float_format="{:.3f}".format))
+    print(f"Share of the net gap across all 14 modes: "
+          f"{top_five_gap:.6f} / {total_gap:.6f} = {top_five_gap / total_gap:.1%}")
+
+
 def issue_results(issues, definitions, cases, modes):
     merged = issues.merge(definitions, on="label", validate="many_to_one")
     assert len(merged) == len(issues) == 6131
@@ -197,6 +209,7 @@ def main():
         render(r,args.out)
     print(f"Verified {len(runs)} executions, {len(r['cases'])} cases and {len(r['issue_inventory'])} issue types against the published analysis.")
     print(r["cases"].category.value_counts().to_string())
+    print_top_five_modes(r["mode_contrasts"])
     print(f"Wrote numerical results to {args.out}")
 
 
