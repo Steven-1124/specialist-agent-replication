@@ -1,0 +1,31 @@
+Task,Task ID,Generalist completion (%),Specialist completion (%),Generalist flagged modes per run,Specialist flagged modes per run,Risk groups (of 5),Risk frequency (%)
+2048,2048,26.67,66.67,2.60,2.80,2,40
+Budget tracker,budgettracker,0.00,13.33,3.60,3.00,0,0
+Candy Crush,candycrush,26.67,40.00,2.67,3.33,3,60
+Checkers,checkers,6.67,26.67,2.87,2.53,1,20
+Chess,chess,0.00,6.67,3.93,3.40,1,20
+Connect Four,connectfour,80.00,86.67,1.80,1.87,1,20
+Connections (NYT),connectionsnyt,0.00,6.67,4.00,3.27,1,20
+Detect palindromes,detectpalindromes,73.33,73.33,1.87,1.27,0,0
+Doudizhu Poker,doudizhupoker,0.00,6.67,2.93,3.20,2,40
+Episode,episodechooseyourstory,20.00,40.00,2.60,2.47,1,20
+Fibonacci numbers,fibonaccinumbers,100.00,100.00,1.47,1.27,0,0
+Flappy Bird,flappybird,33.33,26.67,3.33,2.87,0,0
+Gold Miner,goldminer,13.33,26.67,2.13,3.20,5,100
+Gomoku,gomoku,53.33,73.33,2.27,2.60,2,40
+Mastermind,mastermind,66.67,86.67,2.20,2.07,1,20
+Minesweeper,minesweeper,20.00,46.67,2.80,2.33,2,40
+Monopoly Go,monopolygo,13.33,13.33,3.93,3.53,0,0
+Pong,pong,66.67,86.67,2.47,2.27,1,20
+Reversi / Othello,reversiothello,53.33,60.00,2.87,2.80,0,0
+Snake,snakegame,26.67,60.00,2.47,2.40,0,0
+Space Invaders,textbasedspaceinvaders,33.33,66.67,2.80,3.00,2,40
+Strands (NYT),strandsnyt,0.00,0.00,3.93,3.73,2,40
+Strands game,strandsgame,20.00,26.67,3.40,2.87,1,20
+Sudoku,sudoku,40.00,60.00,2.73,1.87,0,0
+Tetris,tetris,20.00,53.33,2.67,2.20,1,20
+The Crossword,thecrossword,6.67,60.00,2.87,2.47,3,60
+Tic-tac-toe,tictactoe,53.33,66.67,2.07,1.47,1,20
+Tiny Rouge,tiny_rouge,13.33,46.67,3.33,2.27,0,0
+Trivia quiz,triviaquiz,53.33,66.67,2.80,2.20,1,20
+Wordle,wordle,53.33,73.33,2.40,2.00,1,20

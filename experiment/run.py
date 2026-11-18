@@ -26,8 +26,8 @@ ROLES = ("Chief Executive Officer", "Chief Product Officer", "Chief Technology O
 ROLE_FILES = ("01_ceo", "02_cpo", "03_cto", "04_programmer", "05_reviewer", "06_cpo_manual")
 CHANNELS = {
     "completion": ("01_task_completion", parse_task_completion_response),
-    "standard": ("02_standard_failure_modes", parse_failure_modes_response),
-    "p2": ("03_p2_issue_identification", parse_failure_modes_prompt_2_response),
+    "standard": ("02_failure_modes", parse_failure_modes_response),
+    "p2": ("03_issue_identification", parse_failure_modes_prompt_2_response),
 }
 TRACE_MARKER = "[EXECUTION-SPECIFIC MAS TRACE]"
 CONFIG = json.loads((HERE / "models.json").read_text())
@@ -68,7 +68,7 @@ def load_templates():
 def read_inputs():
     with (HERE / "tasks.csv").open(encoding="utf-8", newline="") as f:
         tasks = {r["task_id"]: r["task_prompt"] for r in csv.DictReader(f)}
-    with (HERE / "protocol.csv").open(encoding="utf-8", newline="") as f:
+    with (HERE / "run_schedule.csv").open(encoding="utf-8", newline="") as f:
         runs = list(csv.DictReader(f))
     return tasks, runs
 

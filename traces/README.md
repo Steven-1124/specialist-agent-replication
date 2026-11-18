@@ -1,8 +1,6 @@
 # Archived agent traces and annotation evidence
 
-The archive contains the ordered agent outputs for all 900 executions used in the paper and the source passages recorded for its 6,131 adverse-issue associations. The two compressed files total about 5.8 MiB. They can be read with Python’s standard library.
-
-From the repository root, verify the archive, view one role turn, or inspect the evidence attached to one annotation.
+Choose a task from the [task results](../data/task_results.csv) or [original task requests](../experiment/tasks.csv), then use its `task_id` to read the team’s work. For example, these commands verify the archive, show the first role’s output for a Checkers run, and display the passages supporting one of its issue annotations. Run them from the repository root with Python’s standard library.
 
 ```sh
 python3 traces/verify.py
@@ -14,7 +12,7 @@ The viewer prints generated code as text. Each file is UTF-8 JSON Lines inside g
 
 ## Run selection and recorded outputs
 
-Use `group`, `task_id`, `arm` and `run_number` to join an execution to [the archived completion and failure-mode judgments](../data/executions.csv). The 900 unique run IDs in the temperature-1 standard split vote export exactly matched the IDs in the original issue-analysis execution inventory. Before export, each full source file was checked against its archived SHA-256, and its role, sequence and output fields were compared with the companion simplified trace. All 900 pairs matched. This selects the observed run even when an earlier attempt exists for the same task.
+Each of the 30 tasks has three runs in each programmer condition for each of five groups. Use `group`, `task_id`, `arm` and `run_number` to join a trace to its [completion and failure-mode judgments](../data/executions.csv). Each trace retains the identifier and source hashes of the execution used in the paper.
 
 Each row in [runs.jsonl.gz](runs.jsonl.gz) contains the public run key, historical run ID, full and simplified source-file hashes, and the ordered turns. Each turn contains its original sequence number, role name and generated output. There are 7,512 turns. Most inputs repeat preceding outputs and the common role instructions. The [prompts](../prompts/) give those instructions, and the issue crosswalk preserves the specific input passages used in annotations. Provider metadata, credentials, local directory names and timestamps are unnecessary for reading the role outputs.
 

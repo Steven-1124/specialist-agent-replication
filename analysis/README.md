@@ -1,6 +1,6 @@
 # Reproduce the paper's quantitative results
 
-From the repository root, use CPython 3.10 and run the following commands. Subsequent analysis runs work offline. The analysis uses the temperature-1 standard split evaluator and all 14 MAST modes, including Category 1.
+The [task results](../data/task_results.csv) give each task’s completion rate and mean number of flagged modes in both programmer conditions. The [task requests](../experiment/tasks.csv) describe what the team was asked to build. To reproduce the results and figures from the saved data, use CPython 3.10 and run these commands from the repository root.
 
 ```sh
 python3.10 -m venv .venv
@@ -9,31 +9,33 @@ python -m pip install -r analysis/requirements.txt
 python analysis/reproduce.py
 ```
 
-Outputs go to `build/analysis/`. Use `--out PATH` for another directory or `--no-plots` for the numerical tables alone. The script first calculates the results from the individual runs, checked issue associations, and task ratings. It then compares them with 12 independently exported tables in [the published-result archive](../data/published/). The same run writes the ten empirical figures as PDFs. The numerical tables preserve full precision. The regenerated plots use the paper's measures and data, with some differences in presentation.
+The script writes numerical tables and ten figure PDFs to `build/analysis/`. It checks the estimates against the [archived paper results](../data/published/). Use `--out PATH` for another directory or `--no-plots` for the tables alone. After the dependencies are installed, reproduction works offline.
 
-| Working-paper exhibit | Generated output or archived source |
-| --- | --- |
-| Figures 1–3, workflow, experimental design, and case states | [Archived design exhibits](../design/) |
-| Table 1, noncoder model by group | [Experimental model assignments](../experiment/models.json) |
-| Table 2, saved executions by group and condition | In [the execution inventory](../data/executions.csv), count rows by group and arm. Each group has 90 executions per arm and 30 distinct tasks. |
-| Figure 4, overall changes | `overall.csv` and `figures/outcome_effects_split.pdf` |
-| Figure 5, outcome and process combinations | `cases.csv`, `state_counts.csv`, and `figures/categories_all_split.pdf` (five groups and the pooled sample) |
-| Figure 6 and Table 3, failure-mode counts and ranking | `mode_ranking.csv`, `flags_by_category.csv`, and `figures/all14_failure_case_totals.pdf` |
-| Figure 7, task heterogeneity | `task_risk_frequency.csv` and `figures/risk_frequency_all_split_split_only.pdf` |
-| Figure 8 and Table 4, within-state changes in flagged modes and their contrast | `mode_contrasts.csv` and `figures/all14_case_incidence.pdf` |
-| Figure 9, changes in issue counts within each state, and Table 5, pooled issue counts by mode | `focal_issue_table.csv`, `issue_cells.csv`, `outside_focal_modes.csv`, and `figures/all14_codex_category_counts.pdf` (risk and benefit panels side by side) |
-| Figure 10, risk-minus-benefit difference in issue counts | `issue_difference.csv` and `figures/all14_codex_difference.pdf` |
-| Figures 11–12, role composition | `role_cells.csv`, `role_difference.csv`, and both corresponding role figures |
-| Section 5.1, evaluator and issue-supported mode 2.6 | `recheck.csv` |
-| Figure 13 and Table 6, task-feature associations and scoring criteria | `feature_models.csv`, `feature_correlations.csv`, `figures/task_risk_frequency_all_split.pdf`, and the [scoring criteria](../data/feature_rubric.csv) |
-| Appendix A, Tables A1 and A2, issue inventory and primary-mode mapping | `issue_inventory.csv`, including observed counts, zero-count types, and primary-mode assignments |
-| Appendix B, Table B1, workflow roles and required output fields | [Original role templates](../prompts/mas/), including the CPO’s final manual-writing stage |
+| Working-paper exhibit | Generated tables or archived sources | Generated figure PDF |
+| --- | --- | --- |
+| Figures 1–3, workflow, design, and case states | [Design exhibits](../design/) | — |
+| Table 1, noncoder model by group | [Model assignments](../experiment/models.json) | — |
+| Table 2, saved runs by group and condition | [Execution inventory](../data/executions.csv), grouped by `group` and `arm` | — |
+| Figure 4, overall changes | `overall.csv` | `outcome_effects.pdf` |
+| Figure 5, outcome and process states | `cases.csv`, `state_counts.csv` | `case_states_by_group.pdf` |
+| Figure 6 and Table 3, failure-mode counts and ranking | `mode_ranking.csv`, `flags_by_category.csv` | `failure_mode_counts.pdf` |
+| Figure 7, task risk frequency | `task_risk_frequency.csv` | `task_risk_frequency.pdf` |
+| Figure 8 and Table 4, mode changes by state | `mode_contrasts.csv` | `failure_mode_contrasts.pdf` |
+| Figure 9, issue changes by state, and Table 5, pooled counts | `issue_cells.csv`, `outside_focal_modes.csv`, `focal_issue_table.csv` | `issue_changes_by_state.pdf` |
+| Figure 10, differences in issue changes between states | `issue_difference.csv` | `issue_change_contrasts.pdf` |
+| Figures 11–12, changes by role | `role_cells.csv`, `role_difference.csv` | `role_changes_by_state.pdf`, `role_change_contrasts.pdf` |
+| Section 5.1, trace review for mode 2.6 | `recheck.csv` | — |
+| Figure 13 and Table 6, task features | `feature_models.csv`, `feature_correlations.csv`, [scoring criteria](../data/feature_rubric.csv) | `task_feature_associations.pdf` |
+| Appendix A, Tables A1 and A2, issue inventory and primary modes | `issue_inventory.csv` | — |
+| Appendix B, Table B1, agent roles and required outputs | [Role templates](../prompts/mas/) | — |
+
+The generated PDFs are in the `figures/` subdirectory of the chosen output directory.
 
 ## Estimation equations
 
 ### From evaluator votes to case outcomes
 
-A case $i=(g,t)$ is one of five model groups $g$ crossed with one of 30 tasks $t$. Programmer assignment is $s=0$ for generalist and $s=1$ for specialist. Each arm has three executions $r$. For execution $isr$, write $c_{isrj}$ for evaluator pass $j$'s binary completion vote and $v_{isrjm}$ for its binary vote on MAST mode $m$. The root verification command checks each archived majority decision against the three pass records. Completion and each of the 14 distinct modes, including all five Category 1 modes, have separate majorities.
+A case $i=(g,t)$ is one of five model groups $g$ crossed with one of 30 tasks $t$. Programmer assignment is $s=0$ for generalist and $s=1$ for specialist. Each arm has three executions $r$. For execution $isr$, write $c_{isrj}$ for evaluator pass $j$'s binary completion vote and $v_{isrjm}$ for its binary vote on MAST mode $m$. The root verification command checks each archived majority decision against the three pass records. A majority is computed separately for completion and for each of the 14 failure modes.
 
 $$
 C_{isr}=\mathbf{1}\!\left\{\sum_{j=1}^3 c_{isrj}\ge2\right\},
@@ -46,7 +48,7 @@ f_{ism}=\frac{1}{3}\sum_{r=1}^3 M_{isrm},\qquad
 F_{is}=\sum_{m=1}^{14} f_{ism}.
 $$
 
-$C_{is}$ is the completion rate, $f_{ism}$ the proportion of executions flagged for mode $m$, and $F_{is}$ the mean number of distinct flagged modes per execution (range 0–14). An execution may contribute to several modes.
+$C_{is}$ is the completion rate, $f_{ism}$ the proportion of executions flagged for mode $m$, and $F_{is}$ the mean number of distinct flagged modes per execution (range 0–14). For each case and condition, the failure-mode vector is $[f_1,\ldots,f_{14}]$, with $f_m=f_{ism}$ in MAST order. An execution may contribute to several modes.
 
 ### Paired estimates and intervals
 
@@ -103,7 +105,7 @@ $$
 
 The role panels replace $\ell(a)$ with the assigned primary role. These are raw counts over 35 risk or 74 benefit cases. A single execution can have several checked associations. The inventory uses all states and both arms. An issue type's share equals its total count divided by all 6,131 associations. Issue types above 0.1% get separate rows within the seven focal modes selected by the unadjusted Welch $p<.05$ criterion. The main issue table also retains an aggregate outside the focal modes.
 
-For the mode-2.6 trace recheck, $z_{isr}$ is either the standard binary mode vote or the final binary trace-supported indicator (`rechecked_support`). Set $d_i^z=\frac{100}{3}\sum_r(z_{i1r}-z_{i0r})$. The reported contrast is $\bar d_R^z-\bar d_B^z$ with the same Welch inference and the original state assignments. It is 56.81 percentage points for the standard vote and 14.03 for final trace support (95% CI −3.13 to 31.19). The preliminary residual-screen field records an earlier review decision.
+For the mode-2.6 trace recheck, $z_{isr}$ is either the binary evaluator decision or the final binary trace-supported indicator (`rechecked_support`). Set $d_i^z=\frac{100}{3}\sum_r(z_{i1r}-z_{i0r})$. The reported contrast is $\bar d_R^z-\bar d_B^z$ with the same Welch inference and the original state assignments. It is 56.81 percentage points for the evaluator decision and 14.03 for final trace support (95% CI −3.13 to 31.19).
 
 ### Task-feature estimates and held-out prediction
 

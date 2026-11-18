@@ -149,13 +149,25 @@ def issue_panels(cells, outside, names):
 
 
 def feature_plot(models):
-    fig,ax = plt.subplots(figsize=(8.4,3.4),layout="constrained")
-    for i,row in enumerate(models.itertuples()):
-        ax.errorbar(100*row.effect,i,xerr=[[100*(row.effect-row.ci_low)],[100*(row.ci_high-row.effect)]],
-                    fmt="o",color="#b45720" if row.p_raw<.05 else "#353535",capsize=3)
-    ax.axvline(0,c=".6",ls=":",lw=1)
-    ax.set(yticks=range(len(models)),yticklabels=models.dimension,xlabel="Change in risk frequency (percentage points per unit score)")
-    ax.invert_yaxis()
+    fig, ax = plt.subplots(figsize=(9.2, 3.7))
+    limit = max(1, 120 * models[["ci_low", "ci_high"]].abs().to_numpy().max())
+    for index, row in enumerate(models.itertuples()):
+        significant = row.p_raw < .05
+        color = "#C46210" if significant else "#222222"
+        estimate = 100 * row.effect
+        ax.errorbar(estimate, index,
+                    xerr=[[estimate - 100 * row.ci_low], [100 * row.ci_high - estimate]],
+                    fmt="o", color=color, capsize=3)
+        ax.annotate(f"{estimate:+.1f}", (estimate, index), xytext=(0, 7),
+                    textcoords="offset points", ha="center", fontsize=10, color=color,
+                    weight="bold" if significant else "normal")
+    ax.axvline(0, color="#777", lw=.8)
+    ax.set(xlim=(-limit, limit), ylim=(len(models) - .45, -.55), yticks=range(len(models)),
+           yticklabels=models.dimension,
+           xlabel="Change in risk frequency (percentage points per unit feature score)")
+    ax.tick_params(axis="y", labelsize=9.5)
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout()
     return fig
 
 
@@ -167,19 +179,20 @@ def render(tables,out):
     def save(figure,name):
         figure.savefig(folder/f"{name}.pdf",bbox_inches="tight",metadata={"CreationDate": None})
         plt.close(figure)
-    save(overall(tables["overall"]),"outcome_effects_split")
-    save(state_panels(tables["state_counts"]),"categories_all_split")
+    save(overall(tables["overall"]),"outcome_effects")
+    save(state_panels(tables["state_counts"]),"case_states_by_group")
     estimates=tables["mode_contrasts"]
     modes=sorted(estimates["mode"].unique())
-    save(totals_figure(estimates,modes,["All"]),"all14_failure_case_totals")
-    save(frequency(tables["task_risk_frequency"]),"risk_frequency_all_split_split_only")
-    save(changes_figure(estimates,modes,by_category=True),"all14_case_incidence")
+    save(totals_figure(estimates,modes,["All"]),"failure_mode_counts")
+    save(frequency(tables["task_risk_frequency"]),"task_risk_frequency")
+    save(changes_figure(estimates,modes,by_category=True),"failure_mode_contrasts")
     names=tables["issue_inventory"].set_index("label").issue_type.to_dict()
-    save(issue_panels(tables["issue_cells"], tables["outside_focal_modes"], names), "all14_codex_category_counts")
-    for table,filename in [("issue_difference", "all14_codex_difference"),
-                           ("role_cells", "all14_role_codex_category_counts"),
-                           ("role_difference", "all14_role_codex_difference")]:
+    save(issue_panels(tables["issue_cells"], tables["outside_focal_modes"], names), "issue_changes_by_state")
+    for table,filename in [("issue_difference", "issue_change_contrasts"),
+                           ("role_cells", "role_changes_by_state"),
+                           ("role_difference", "role_change_contrasts")]:
         ordering = tables["role_cells"] if table.startswith("role") else tables["issue_cells"]
         save(heatmaps(tables[table],ordering,"role" if table.startswith("role") else "label",names,
                       table.endswith("difference")),filename)
-    save(feature_plot(tables["feature_models"]),"task_risk_frequency_all_split")
+    with plt.rc_context({"font.family": "DejaVu Sans", "font.size": 12, "pdf.fonttype": 42}):
+        save(feature_plot(tables["feature_models"]), "task_feature_associations")
